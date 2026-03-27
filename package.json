@@ -1,0 +1,19 @@
+{
+  "name": "pptform-automator",
+  "version": "1.0.0",
+  "description": "Puppeteer automation for pptform.state.gov passport form filler",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "@sparticuz/chromium": "^131.0.0",
+    "express": "^4.21.0",
+    "pdf-lib": "^1.17.1",
+    "puppeteer-core": "^23.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
