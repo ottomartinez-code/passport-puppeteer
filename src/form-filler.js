@@ -113,7 +113,7 @@ await page.authenticate({
     console.log("Navigating to pptform.state.gov...");
     await page.goto("https://pptform.state.gov", {
       waitUntil: "networkidle2",
-      timeout: 120000,
+      timeout: 240000 ,
     });
     await randomDelay(2000, 4000);
 
