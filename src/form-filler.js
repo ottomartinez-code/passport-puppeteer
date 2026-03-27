@@ -113,7 +113,7 @@ await page.authenticate({
     console.log("Navigating to pptform.state.gov...");
     await page.goto("https://pptform.state.gov", {
       waitUntil: "networkidle2",
-      timeout: 60000,
+      timeout: 120000,
     });
     await randomDelay(2000, 4000);
 
@@ -129,7 +129,7 @@ const privacySelectors = [
 let privacyChecked = false;
 for (const sel of privacySelectors) {
  try {
-      await page.waitForSelector(sel, { timeout: 5000 });
+      await page.waitForSelector(sel, { timeout: 120000 });
       const el = await page.$(sel);
     if (el) {
       await checkCheckbox(page, sel);
