@@ -80,7 +80,7 @@ async function fillPassportForm(data) {
 
   // Launch browser
   const browser = await puppeteer.launch({
-    args: chromium.args,
+    args: [...chromium.args, '--proxy-server=brd.superproxy.io:33335'],
     defaultViewport: { width: 1280, height: 900 },
     executablePath: await chromium.executablePath(),
     headless: chromium.headless,
@@ -91,7 +91,10 @@ async function fillPassportForm(data) {
 
   try {
     const page = await browser.newPage();
-
+await page.authenticate({
+  username: process.env.BRIGHTDATA_USERNAME + `-session-` + Math.random().toString(36).substring(2,10),
+  password: process.env.BRIGHTDATA_PASSWORD
+});
     // Real browser user agent
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
