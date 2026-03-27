@@ -129,7 +129,7 @@ const privacySelectors = [
 let privacyChecked = false;
 for (const sel of privacySelectors) {
  try {
-      await page.waitForSelector(sel, { timeout: 120000 });
+      await page.waitForSelector(sel, { timeout: 240000 });
       const el = await page.$(sel);
     if (el) {
       await checkCheckbox(page, sel);
