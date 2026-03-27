@@ -53,6 +53,7 @@ app.post("/generate", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`pptform-automator listening on port ${PORT}`);
 });
+server.timeout = 300000;
