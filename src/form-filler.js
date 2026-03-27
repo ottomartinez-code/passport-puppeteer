@@ -114,12 +114,45 @@ async function fillPassportForm(data) {
     });
     await randomDelay(2000, 4000);
 
-    // Check privacy checkbox and submit
-    await checkCheckbox(page, "#chkPrivacy");
-    await randomDelay(800, 2500);
-    await clickAndWait(page, "#btnSubmit");
-    await page.waitForNavigation({ waitUntil: "networkidle2", timeout: 30000 }).catch(() => {});
-    await randomDelay(2000, 4000);
+  // Check privacy checkbox and submit — try multiple selectors
+const privacySelectors = [
+  '#chkPrivacy', 
+  'input[name*="Privacy"]',
+  'input[type="checkbox"]',
+  '#chkAgree',
+  'input[name*="Agree"]'
+];
+
+let privacyChecked = false;
+for (const sel of privacySelectors) {
+  try {
+    const el = await page.$(sel);
+    if (el) {
+      await checkCheckbox(page, sel);
+      privacyChecked = true;
+      console.log(`Checked privacy with selector: ${sel}`);
+      break;
+    }
+  } catch { /* try next */ }
+}
+
+if (!privacyChecked) {
+  console.log('No privacy checkbox found — continuing anyway');
+}
+
+await randomDelay(800, 2500);
+
+// Try multiple submit button selectors
+const submitBtnSelectors = ['#btnSubmit', 'input[type="submit"]', 'button[type="submit"]', '#btnContinue'];
+for (const sel of submitBtnSelectors) {
+  try {
+    const el = await page.$(sel);
+    if (el) {
+      await clickAndWait(page, sel);
+      break;
+    }
+  } catch { /* try next */ }
+}
 
     // -----------------------------------------------------------------------
     // Step 2: Form type selection
